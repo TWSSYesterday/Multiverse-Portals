@@ -256,12 +256,14 @@ public class PortalPlayerSession {
     }
 
     public boolean showDebugInfo(MVPortal portal) {
-        if (portal.playerCanEnterPortal(this.getPlayerFromName())) {
-            showStaticInfo(this.getPlayerFromName(), portal, "Portal Info ");
+        Player player = getPlayerFromName();
+        if (portal.playerCanEnterPortal(player)) {
+            showStaticInfo(player, portal, "Portal Info ");
             showPortalPriceInfo(portal);
         } else {
-            this.plugin.log(Level.INFO, "Player " + this.playerName + " walked through" + portal.getName() + " with debug on.");
+            plugin.log(Level.INFO, "Player " + playerName + " walked through " + portal.getName() + " with debug on.");
         }
+
         return true;
     }
 
@@ -282,7 +284,7 @@ public class PortalPlayerSession {
             } else {
                 formattedAmount = this.plugin.getCore().getBank().getFormattedAmount(getPlayerFromName(), Math.abs(portal.getPrice()), portal.getCurrency());
             }
-            getPlayerFromName().sendMessage("Prize: " + ChatColor.GREEN + formattedAmount);
+            getPlayerFromName().sendMessage("Price: " + ChatColor.GREEN + formattedAmount);
         } else {
             getPlayerFromName().sendMessage("Price: " + ChatColor.GREEN + "FREE!");
         }
@@ -290,12 +292,12 @@ public class PortalPlayerSession {
 
     public static void showStaticInfo(CommandSender sender, MVPortal portal, String message) {
         sender.sendMessage(message + ChatColor.DARK_AQUA + portal.getName());
-        sender.sendMessage("It's coords are: " + ChatColor.GOLD + portal.getLocation().toString());
+        sender.sendMessage("Coordinates: " + ChatColor.GOLD + portal.getLocation().toString());
         if (portal.getDestination() == null) {
-            sender.sendMessage("This portal has " + ChatColor.RED + "NO DESTINATION SET.");
+            sender.sendMessage("Destination: " + ChatColor.RED + "Not set.");
         } else {
-            sender.sendMessage("It will take you to a location of type: " + ChatColor.AQUA + portal.getDestination().getType());
-            sender.sendMessage("The destination's name is: " + ChatColor.GREEN + portal.getDestination().getName());
+            sender.sendMessage("Destination Type: " + ChatColor.AQUA + portal.getDestination().getType());
+            sender.sendMessage("Destination Name: " + ChatColor.GREEN + portal.getDestination().getName());
         }
     }
 

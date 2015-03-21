@@ -39,6 +39,7 @@ import com.onarandombox.MultiversePortals.commands.DebugCommand;
 import com.onarandombox.MultiversePortals.commands.InfoCommand;
 import com.onarandombox.MultiversePortals.commands.ListCommand;
 import com.onarandombox.MultiversePortals.commands.ModifyCommand;
+import com.onarandombox.MultiversePortals.commands.NearbyCommand;
 import com.onarandombox.MultiversePortals.commands.RemoveCommand;
 import com.onarandombox.MultiversePortals.commands.SelectCommand;
 import com.onarandombox.MultiversePortals.commands.WandCommand;
@@ -324,6 +325,7 @@ public class MultiversePortals extends JavaPlugin implements MVPlugin {
         this.commandHandler.registerCommand(new DebugCommand(this));
         this.commandHandler.registerCommand(new RemoveCommand(this));
         this.commandHandler.registerCommand(new ModifyCommand(this));
+        this.commandHandler.registerCommand(new NearbyCommand(this));
         this.commandHandler.registerCommand(new SelectCommand(this));
         this.commandHandler.registerCommand(new WandCommand(this));
         this.commandHandler.registerCommand(new ConfigCommand(this));

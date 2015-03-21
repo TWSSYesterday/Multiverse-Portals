@@ -120,16 +120,18 @@ public class PortalLocation {
 
     @Override
     public String toString() {
-        if (this.region == null) {
-            return "";
+        if (region == null) {
+            return "null";
         }
+
         StringBuilder sb = new StringBuilder();
-        sb.append(this.region.getMinimumPoint().getX() + ",");
-        sb.append(this.region.getMinimumPoint().getY() + ",");
-        sb.append(this.region.getMinimumPoint().getZ() + ":");
-        sb.append(this.region.getMaximumPoint().getX() + ",");
-        sb.append(this.region.getMaximumPoint().getY() + ",");
-        sb.append(this.region.getMaximumPoint().getZ());
+        sb.append(region.getWorld().getName() + ";");
+        sb.append(region.getMinimumPoint().getX() + ",");
+        sb.append(region.getMinimumPoint().getY() + ",");
+        sb.append(region.getMinimumPoint().getZ() + ";");
+        sb.append(region.getMaximumPoint().getX() + ",");
+        sb.append(region.getMaximumPoint().getY() + ",");
+        sb.append(region.getMaximumPoint().getZ());
         return sb.toString();
     }
 
@@ -142,5 +144,11 @@ public class PortalLocation {
 
     public MultiverseRegion getRegion() {
         return this.region;
+    }
+
+    public double distance(Location location) {
+        Vector minimum = region.getMinimumPoint();
+        Location portal = new Location(region.getWorld().getCBWorld(), minimum.getX(), minimum.getY(), minimum.getZ());
+        return portal.distance(location);
     }
 }

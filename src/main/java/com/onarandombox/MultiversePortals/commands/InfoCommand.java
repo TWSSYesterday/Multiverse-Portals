@@ -33,14 +33,15 @@ public class InfoCommand extends PortalCommand {
 
     @Override
     public void runCommand(CommandSender sender, List<String> args) {
-        MVPortal selected = this.plugin.getPortalManager().getPortal(args.get(0), sender);
-        if(selected == null) {
-            sender.sendMessage("Sorry! That portal doesn't exist or you're not allowed to use it!");
+        MVPortal selected = plugin.getPortalManager().getPortal(args.get(0), sender);
+        if (selected == null) {
+            sender.sendMessage(ChatColor.RED + "That portal doesn't exist or you're not allowed to use it!");
             return;
         }
-        if(sender instanceof Player) {
+
+        if (sender instanceof Player) {
             Player p = (Player) sender;
-            this.plugin.getPortalSession(p).showDebugInfo(selected);
+            plugin.getPortalSession(p).showDebugInfo(selected);
         } else {
             PortalPlayerSession.showStaticInfo(sender, selected, "Portal Info: ");
         }
