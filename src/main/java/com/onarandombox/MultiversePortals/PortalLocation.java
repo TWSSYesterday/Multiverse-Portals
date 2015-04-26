@@ -41,25 +41,35 @@ public class PortalLocation {
     }
 
     public static PortalLocation parseLocation(String locationString, MultiverseWorld world, String portalName) {
+        Vector pos1, pos2;
         String[] split = locationString.split(":");
+
         if (split.length != 2) {
-            MultiversePortals.staticLog(Level.WARNING, "Failed Parsing Location for: " + portalName + " (Format Error, was expecting: `X,Y,Z:X,Y,Z`, but got: `" + locationString + "`)");
-            return getInvalidPortalLocation();
+            // Try with semicolons
+            String[] split1 = locationString.split(";");
+            if (split.length != 3) {
+                MultiversePortals.staticLog(Level.WARNING, "Failed Parsing Location for: " + portalName + " (Format Error, was expecting: `X,Y,Z:X,Y,Z`, but got: `" + locationString + "`)");
+                return getInvalidPortalLocation();
+            } else {
+                pos1 = parseVector(split1[1]);
+                pos2 = parseVector(split1[2]);
+            }
+        } else {
+            pos1 = parseVector(split[0]);
+            pos2 = parseVector(split[1]);
         }
+
         if (world == null) {
             MultiversePortals.staticLog(Level.WARNING, "Failed Parsing World for: " + portalName + " (World Error, World did not exist or was not imported into Multiverse-Core!)");
             return getInvalidPortalLocation();
         }
 
-        Vector pos1 = parseVector(split[0]);
-        Vector pos2 = parseVector(split[1]);
-
         if (pos1 == null || pos2 == null) {
             MultiversePortals.staticLog(Level.WARNING, "Failed Parsing Location for: " + portalName + " (Vector Error, was expecting: `X,Y,Z:X,Y,Z`, but got: `" + locationString + "`)");
             return getInvalidPortalLocation();
         }
-        return new PortalLocation(pos1, pos2, world);
 
+        return new PortalLocation(pos1, pos2, world);
     }
 
     private static PortalLocation getInvalidPortalLocation() {
