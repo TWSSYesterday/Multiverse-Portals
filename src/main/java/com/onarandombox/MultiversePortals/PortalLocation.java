@@ -47,7 +47,7 @@ public class PortalLocation {
         if (split.length != 2) {
             // Try with semicolons
             String[] split1 = locationString.split(";");
-            if (split.length != 3) {
+            if (split1.length != 3) {
                 MultiversePortals.staticLog(Level.WARNING, "Failed Parsing Location for: " + portalName + " (Format Error, was expecting: `X,Y,Z:X,Y,Z`, but got: `" + locationString + "`)");
                 return getInvalidPortalLocation();
             } else {
