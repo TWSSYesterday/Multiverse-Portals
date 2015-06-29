@@ -12,9 +12,10 @@
     </properties>
 
     <repositories>
+        <!-- For spigot/bukkit/craftbukkit snapshots -->
         <repository>
-            <id>OnARandomBox</id>
-            <url>http://repo.onarandombox.com/content/groups/public</url>
+            <id>spigot-snapshots</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>Bukkit Official</id>
@@ -126,30 +127,21 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>com.dumptruckman.minecraft:Logging</include>
-                                </includes>
-                            </artifactSet>
-                            <relocations>
-                                <relocation>
-                                    <pattern>com.dumptruckman.minecraft.util.Logging</pattern>
-                                    <shadedPattern>com.onarandombox.MultiversePortals.util.MVPLogging
-                                    </shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.dumptruckman.minecraft.util.DebugLog</pattern>
-                                    <shadedPattern>com.onarandombox.MultiverseCore.utils.DebugFileLogger</shadedPattern>
-                                </relocation>
-                            </relocations>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
     <dependencies>
+
+        <!-- Start of Bukkit Dep -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.8.3-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- End of Bukkit Dep -->
 
         <!-- Start of Multiverse Core Dependency -->
         <dependency>
@@ -158,6 +150,17 @@
             <version>2.5</version>
             <type>jar</type>
             <scope>compile</scope>
+        <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>craftbukkit</artifactId>
+                </exclusion>
+            </exclusions>
+
         </dependency>
         <!-- End of Multiverse Core Dependency -->
 
@@ -165,27 +168,10 @@
         <dependency>
             <groupId>com.sk89q</groupId>
             <artifactId>worldedit</artifactId>
-            <version>5.6.3</version>
-            <type>jar</type>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.bukkit</groupId>
-                    <artifactId>bukkit</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>6.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <!-- End of WorldEdit Dependency -->
-
-        <!-- Start of Logging Dependency -->
-        <dependency>
-            <groupId>com.dumptruckman.minecraft</groupId>
-            <artifactId>Logging</artifactId>
-            <version>1.0.6</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <!-- End of Logging Dependency -->
 
     </dependencies>
     <distributionManagement>
